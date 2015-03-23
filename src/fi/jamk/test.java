@@ -6,6 +6,7 @@
 
 package fi.jamk;
 
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.AppGameContainer;
@@ -23,9 +24,10 @@ import org.newdawn.slick.geom.Transform;
  */
 public class test extends BasicGame
 {
-    ShipV2 ship;
+    PhysicObject ship;
     Transform shipTrans;
     Image bg;
+    DecimalFormat df = new DecimalFormat("#.##");
     public static final int WIDTH=800,HEIGHT=600;
 	public test(String gamename)
 	{
@@ -34,8 +36,8 @@ public class test extends BasicGame
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-            ship = new ShipV2();
-            ship.init();
+        ship = new PhysicObject(0.5f, 1.0f, 1.0f, 1.0f);
+        ship.init();
             //shipTrans = new Transform();
             bg = new Image("bg.jpg");
         }
@@ -48,12 +50,12 @@ public class test extends BasicGame
             /*if(input.isKeyDown(input.KEY_UP)){
                 ship.setSpeed(3*i);
             }*/
-            if(input.isKeyDown(input.KEY_A)){
-                ship.turn("CCW", i);
+            if(input.isKeyDown(input.KEY_LEFT)){
+                ship.rotate(-1);
 
             }
-            if(input.isKeyDown(input.KEY_D)){
-                ship.turn("CW", i);
+            if(input.isKeyDown(input.KEY_RIGHT)){
+                ship.rotate(1);
 
                 
             }
@@ -68,16 +70,18 @@ public class test extends BasicGame
 
             }*/
             if(input.isKeyDown(input.KEY_UP)){
-                ship.move("FW", i);
+                ship.accelerate(1);
                 //ship.checkBounds();
             }
             if(input.isKeyDown(input.KEY_DOWN)){
-                ship.move("BW", i);
+                ship.accelerate(-1);
                 //ship.checkBounds();
             }
             if(input.isKeyDown(input.KEY_ESCAPE)){
                 System.exit(0);
             }
+            
+            ship.update();
         }
 
 	@Override
@@ -85,12 +89,17 @@ public class test extends BasicGame
 	{
                 g.drawImage(bg, 0, 0);
 		ship.draw();
-                g.drawRect(110, 5, 170, 75);
-                g.drawString("Location: "+ship.getX()+","+ship.getY(), 120, 10);
-                g.drawString("Angle: "+(int)ship.getAngle(), 120, 25);
-                //g.drawString("Speed: "+ship.getSpeed(), 120, 40);
+                //g.drawRect(110, 5, 170, 75);
+                g.drawString("Location X: "+ship.getX(), 120, 10);
+                g.drawString("Y: "+ship.getY(), 340, 10);
+                
+                g.drawString("Angle Delta: "+df.format(ship.getDRotation()), 120, 25);
+                g.drawString("Current: "+df.format(ship.getCRotation()), 340, 25);
+                
+                g.drawString("Velocity X: "+ship.getFX(), 120, 40);
+                g.drawString("Y: "+ship.getFY(), 340, 40);
                 //g.drawString(ship.getName(),ship.getX(),ship.getY()+40);
-                g.drawString("angleRad: "+ship.getAngleRad(), 420, 10);
+                //g.drawString("angleRad: "+ship.getAngleRad(), 420, 10);
 
 	}
 

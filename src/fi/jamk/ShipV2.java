@@ -8,9 +8,9 @@ import org.newdawn.slick.Image;
  */
 public class ShipV2 {
     private Image image;
-    private int posX, posY, speed = 1;
+    private int posX, posY;
     private double angle = 0, rotation = 0, angleSin, angleCos; // Sin for x, cos for y. Because math. That's why.
-    private float turnrate = 0.5f;
+    private float turnrate = 0.2f, speed = 0.3f;
     private final float MAX_SPEED = 10.0f;
     private int width, height;
     
@@ -41,12 +41,12 @@ public class ShipV2 {
     
     public void move(String direction, int i) {
         if ("FW".equals(direction)) {
-            this.posX += this.speed * getAngleCos() * i;
-            this.posY += this.speed * getAngleSin() * i;
+            this.posX += Math.round(this.speed * getAngleCos() * i);
+            this.posY += Math.round(this.speed * getAngleSin() * i);
         }
         if ("BW".equals(direction)) {
-            this.posX -= this.speed * getAngleCos() * i;
-            this.posY -= this.speed * getAngleSin() * i;
+            this.posX -= Math.round(this.speed * getAngleCos() * i);
+            this.posY -= Math.round(this.speed * getAngleSin() * i);
         }
     }
     
