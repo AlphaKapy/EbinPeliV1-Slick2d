@@ -16,7 +16,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Transform;
 
 /**
  *
@@ -24,11 +23,13 @@ import org.newdawn.slick.geom.Transform;
  */
 public class test extends BasicGame
 {
-    PhysicObject ship;
-    Transform shipTrans;
+    PhysicObject ship, missile;
     Image bg;
+    boolean missileFired = false;
     DecimalFormat df = new DecimalFormat("#.##");
-    public static final int WIDTH=800,HEIGHT=600;
+    ParticleTrail missilePT;
+    public static final int WIDTH=1024,HEIGHT=768;
+    
 	public test(String gamename)
 	{
 		super(gamename);
@@ -36,10 +37,10 @@ public class test extends BasicGame
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-        ship = new PhysicObject(0.5f, 1.0f, 1.0f, 1.0f);
-        ship.init();
+        ship = new PhysicObject(0.25f, 1.0f, 1.0f, 1.0f);
+        ship.init("ship.png");
             //shipTrans = new Transform();
-            bg = new Image("bg.jpg");
+            //bg = new Image("bg.jpg");
         }
 
 	@Override
@@ -47,48 +48,55 @@ public class test extends BasicGame
             //Game logic
             //input
             Input input = gc.getInput();
-            /*if(input.isKeyDown(input.KEY_UP)){
-                ship.setSpeed(3*i);
-            }*/
+
             if(input.isKeyDown(input.KEY_LEFT)){
                 ship.rotate(-1);
 
             }
             if(input.isKeyDown(input.KEY_RIGHT)){
                 ship.rotate(1);
-
-                
             }
-            /*if(input.isKeyDown(input.KEY_RIGHT)){
-                ship.setY((int) (0.2*i));
-                ship.checkBounds();
 
-            }*/
-            /*if(input.isKeyDown(input.KEY_LEFT)){
-                ship.setY((int) (-0.2*i));
-                ship.checkBounds();
-
-            }*/
             if(input.isKeyDown(input.KEY_UP)){
                 ship.accelerate(1);
                 //ship.checkBounds();
             }
-            if(input.isKeyDown(input.KEY_DOWN)){
-                ship.accelerate(-1);
-                //ship.checkBounds();
+            
+            if(input.isKeyPressed(input.KEY_SPACE)){
+                missile = new PhysicObject(0.25f, 0, 0, 0, ship.getX(), ship.getY(), ship.getCRotation(), 0, 0, ship.getFX(), ship.getFY());
+                missile.init("missile.png");
+                missilePT = new ParticleTrail("smoke-particle.png");
+                missilePT.init();
+                missileFired = true;
             }
+            
+            if (input.isKeyDown(input.KEY_R)) {
+                ship.setForce(0, 0);
+                ship.setPosition(0, 0);
+            }
+            
             if(input.isKeyDown(input.KEY_ESCAPE)){
                 System.exit(0);
             }
             
             ship.update();
+            if (missileFired)
+            {
+                missile.accelerate(1);
+                missile.update();
+                missilePT.update(missile.getX(), missile.getY());
+            }
         }
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
-                g.drawImage(bg, 0, 0);
+                //g.drawImage(bg, 0, 0);
 		ship.draw();
+                if (missileFired) {
+                    missile.draw();
+                    missilePT.draw();
+                }
                 //g.drawRect(110, 5, 170, 75);
                 g.drawString("Location X: "+ship.getX(), 120, 10);
                 g.drawString("Y: "+ship.getY(), 340, 10);
@@ -110,7 +118,7 @@ public class test extends BasicGame
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new test("Ship movement"));
                         appgc.setIcon("ship.png");
-                        appgc.setShowFPS(false);
+                        appgc.setShowFPS(true);
 			appgc.setDisplayMode(WIDTH, HEIGHT, false);
                         appgc.setTargetFrameRate(60);
 			appgc.start();
