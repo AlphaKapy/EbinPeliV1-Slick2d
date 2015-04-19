@@ -6,6 +6,7 @@
 
 package fi.jamk;
 
+import static fi.jamk.ControllablePhysicObject.ControllerTypes.*;
 import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +24,8 @@ import org.newdawn.slick.SlickException;
  */
 public class test extends BasicGame
 {
-    PhysicObject ship, missile;
+    ControllablePhysicObject ship;
+    PhysicObject missile;
     Image bg;
     boolean missileFired = false;
     DecimalFormat df = new DecimalFormat("#.##");
@@ -37,7 +39,7 @@ public class test extends BasicGame
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-        ship = new PhysicObject(0.25f, 1.0f, 1.0f, 1.0f);
+        ship = new ControllablePhysicObject(0.25f, 1.0f, 1.0f, 1.0f, XB360WIRED);
         ship.init("ship.png");
             //shipTrans = new Transform();
             //bg = new Image("bg.jpg");
@@ -49,20 +51,9 @@ public class test extends BasicGame
             //input
             Input input = gc.getInput();
 
-            if(input.isKeyDown(input.KEY_LEFT)){
-                ship.rotate(-1);
-
-            }
-            if(input.isKeyDown(input.KEY_RIGHT)){
-                ship.rotate(1);
-            }
-
-            if(input.isKeyDown(input.KEY_UP)){
-                ship.accelerate(1);
-                //ship.checkBounds();
-            }
+            ship.updateControls(gc);
             
-            if(input.isKeyPressed(input.KEY_SPACE)){
+            if(input.isButton1Pressed(4)){
                 missile = new PhysicObject(0.25f, 0, 0, 0, ship.getX(), ship.getY(), ship.getCRotation(), 0, 0, ship.getFX(), ship.getFY());
                 missile.init("missile.png");
                 missilePT = new ParticleTrail("smoke-particle.png");
