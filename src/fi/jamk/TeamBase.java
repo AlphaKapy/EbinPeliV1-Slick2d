@@ -19,7 +19,7 @@ public class TeamBase{
     private int posX, posY, teamID;
     private String teamName;
     private String imgPath;
-    private Image img;
+    private Image img, shield;
     private int health;
     private boolean destroyed =false;
     private boolean gameOver = false;
@@ -32,6 +32,7 @@ public class TeamBase{
         this.imgPath = imgPath;
         try {
             img = new Image(imgPath);
+            shield = new Image("shield.png");
         } catch (SlickException ex) {
             System.out.println("Loading base image failed");
             Logger.getLogger(TeamBase.class.getName()).log(Level.SEVERE, null, ex);
@@ -39,7 +40,10 @@ public class TeamBase{
     }
     
     public void render(Graphics g){
-        g.drawImage(img, posX, posX);
+        g.drawImage(img, posX, posY);
+        g.drawRect(posX, posY, img.getWidth(),img.getHeight());
+        g.drawImage(shield,posX,posY);
+
     }
     
     public void update(){

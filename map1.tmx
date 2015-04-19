@@ -8,9 +8,12 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="18" name="base1" tilewidth="64" tileheight="64">
+  <image source="base1.png" width="64" height="64"/>
+ </tileset>
  <layer name="Tiles" width="60" height="33">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3ZsQqAMAxF0VTQ//9kFwUpSVxapS/3QOgQl0fTDnY3s8PGa0F5/S9tV43WHmuW66/co2V72/ct+GY1fR6v9zb3q8kyROd59fzZXaWQD7lo1lX3O7rLVHnnW53y/AIAAAAAgLmi/+FKvLcd9bxVst6q561SJ9gwb9rwHgAA
+   H4sIAAAAAAAAC+3ZQQqAMAxE0VRUvP+JRbAgJYkuqtLhPwgu4mZo2kW7mNlq/ZWgvP6XprN6K5dvluuv3L1la9v2LfhnNG0er3c396PJMkT7efT82VmlkA+5aNZV1zs6y1R5+1ud8vwCAAAAAIB3RffhSry3HfW8tTbTzlodGWfTX9vqyZuGYu3zPCyk8B4AAA==
   </data>
  </layer>
  <objectgroup name="Objects" width="60" height="33"/>

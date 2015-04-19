@@ -33,6 +33,7 @@ public class test extends BasicGame
     ParticleTrail missilePT;
     public static final int WIDTH=1920,HEIGHT=1080;
     TiledMap map;
+    TeamBase tmb1,tmb2;
     
 	public test(String gamename)
 	{
@@ -46,6 +47,8 @@ public class test extends BasicGame
             //shipTrans = new Transform();
             bg = new Image("bg2.png");
         map = new TiledMap("/map1.tmx",true);
+        tmb1 = new TeamBase(0, HEIGHT-120, 1, "Crackers", "base1.png");
+        tmb2 = new TeamBase(WIDTH-64, HEIGHT-120, 2, "Blowers", "base1.png");
         }
 
 	@Override
@@ -87,6 +90,8 @@ public class test extends BasicGame
 	{
                 g.drawImage(bg, 0, 0);
                 map.render(0, 0);
+                tmb1.render(g);
+                tmb2.render(g);
                 
 		ship.draw();
                 if (missileFired) {
@@ -114,8 +119,8 @@ public class test extends BasicGame
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new test("Ship movement"));
                         appgc.setIcon("ship.png");
-                        appgc.setShowFPS(true);
-			appgc.setDisplayMode(WIDTH, HEIGHT, true);
+                        appgc.setShowFPS(false);
+			appgc.setDisplayMode(WIDTH, HEIGHT, false);
                         appgc.setTargetFrameRate(60);
 			appgc.start();
                         
