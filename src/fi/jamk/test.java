@@ -162,8 +162,8 @@ public class test extends BasicGame
                 g.drawString("Velocity X: "+ship.getFX(), 120, 40);
                 g.drawString("Y: "+ship.getFY(), 340, 40);
                 //debugging camera
-                //System.out.println("Camera X: "+camera.getX());
-                //System.out.println("Camera Y: "+camera.getY());
+                System.out.println("Camera X: "+camera.getX());
+                System.out.println("Camera Y: "+camera.getY());
                 //end of camera debug
                 //g.drawString(ship.getName(),ship.getX(),ship.getY()+40);
                 //g.drawString("angleRad: "+ship.getAngleRad(), 420, 10);

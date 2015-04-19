@@ -31,7 +31,7 @@ public class Camera {
 
         if (ship.getX() - test.WIDTH / 30 < 0) { // 2 + 16 < 0
             x = 0;
-        } else if (ship.getX() + test.WIDTH / 30 > mapWidth) { // 2 + 16 > 0
+        } else if (ship.getX() + test.WIDTH * 30 > mapWidth) { // 2 + 16 > 0
             x = -mapWidth + test.WIDTH;
         } else {
             x = (int) -ship.getX() + test.WIDTH / 30; // 2-16
@@ -39,7 +39,7 @@ public class Camera {
 
         if (ship.getY() - test.HEIGHT / 200 < 0) { // 2 + 16 < 0
             y = 0;
-        } else if (ship.getY() + test.HEIGHT / 200 > mapHeight) { // 2 + 16 > 0
+        } else if (ship.getY() + test.HEIGHT * 30 > mapHeight) { // 2 + 16 > 0
             y = -mapHeight + test.HEIGHT;
         } else {
             y = (int) -ship.getY() + test.HEIGHT / 200; // 2 - 16
