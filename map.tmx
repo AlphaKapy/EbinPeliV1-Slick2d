@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="128" height="48" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="lush" tilewidth="32" tileheight="32">
+  <terraintypes>
+   <terrain name="default" tile="-1">
+    <properties>
+     <property name="collision" value="true"/>
+     <property name="faction" value=""/>
+     <property name="health" value="10 000"/>
+    </properties>
+   </terrain>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+   <image width="32" height="32" source="C:/Users/Ghost/Pictures/default tile/dirt1.png"/>
+  </tile>
+  <tile id="1" terrain="0,0,0,0">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+   <image width="32" height="32" source="C:/Users/Ghost/Pictures/default tile/grass1.png"/>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="collision" value="true"/>
+   </properties>
+   <image width="32" height="32" source="C:/Users/Ghost/Pictures/default tile/dirt2.png"/>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="collision" value="true"/>
+    <property name="faction" value=""/>
+    <property name="health" value="10 000"/>
+   </properties>
+   <image width="32" height="32" source="C:/Users/Ghost/Pictures/default tile/castle-left.png"/>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="collision" value="true"/>
+    <property name="faction" value=""/>
+    <property name="health" value="10 000"/>
+   </properties>
+   <image width="32" height="32" source="C:/Users/Ghost/Pictures/default tile/castle-right.png"/>
+  </tile>
+ </tileset>
+ <imagelayer name="background">
+  <image source="C:/Users/Ghost/Pictures/pokemon-clouds_00384079.png"/>
+ </imagelayer>
+ <imagelayer name="Copy of background" x="1920">
+  <image source="C:/Users/Ghost/Pictures/pokemon-clouds_00384079.png"/>
+ </imagelayer>
+ <imagelayer name="Copy of background" x="3741" y="1">
+  <image source="C:/Users/Ghost/Pictures/pokemon-clouds_00384079.png"/>
+ </imagelayer>
+ <layer name="Tile Layer 1" width="128" height="48">
+  <data encoding="base64" compression="zlib">
+   eJzt1MsOwiAQBdA+9P9/WTcmpoEKLTCNPSeZjVI6XArTBAAAAAAAAAAAAAAAAAAAAAAAjPZ41zO6CU5bKsd/9n1Rt65VqYvW/FW530uqZP4z8/xrReefGr8WzLsm/q/dy8g9H5l7bV+j858z8+1l0noPos//yNxTz0bnn+on9+5tzy3u8p533F7fEbnn9j8i/725ttmcySD17K/8W5y13Ljo3K+Sf8/v+8iZbt1L6fnvmXtNf6Pzr7n7as7EkbVGn7VeuR/5PqLyb5lDae6977jU2kbmfveKvuOi1/8COG4NGw==
+  </data>
+ </layer>
+</map>

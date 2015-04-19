@@ -16,6 +16,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.tiled.TiledMap;
 
 /**
  *
@@ -29,6 +30,12 @@ public class test extends BasicGame
     DecimalFormat df = new DecimalFormat("#.##");
     ParticleTrail missilePT;
     public static final int WIDTH=1024,HEIGHT=768;
+    Camera camera;
+    TiledMap map;
+    int mapHeight;// = 1000, 
+    int mapWidth;//= 3000;
+    int tileHeight;// = 32, 
+    int tileWidth;// = 32;
     
 	public test(String gamename)
 	{
@@ -37,10 +44,26 @@ public class test extends BasicGame
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
+            gc.setAlwaysRender(true);
+            gc.setMaximumLogicUpdateInterval(60);
+            gc.setTargetFrameRate(60);
+            gc.setVSync(true);
+            try{
+                map = new TiledMap("/map1.tmx",true);
+            }catch(Exception e){
+                e.printStackTrace();
+                System.out.println("Failed to load the map");
+            }
+            
+            mapWidth = map.getWidth() * map.getTileWidth();
+            mapHeight = map.getHeight() * map.getTileHeight();
+            tileHeight = map.getTileHeight();
+            tileWidth = map.getTileWidth();
+            camera = new Camera(map, mapWidth, mapHeight);
         ship = new PhysicObject(0.25f, 1.0f, 1.0f, 1.0f);
         ship.init("ship.png");
             //shipTrans = new Transform();
-            //bg = new Image("bg.jpg");
+            bg = new Image("bg.jpg");
         }
 
 	@Override
@@ -91,13 +114,23 @@ public class test extends BasicGame
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
-                //g.drawImage(bg, 0, 0);
+                g.drawImage(bg, 0 + camera.getX(), 0 + camera.getY());
+            try{
+                map.render(0 + camera.getX(), 0 + camera.getY());
+            }catch(Exception e){
+                System.out.println("Failed to render map");
+                e.printStackTrace();
+            }
+                
 		ship.draw();
                 if (missileFired) {
                     missile.draw();
                     missilePT.draw();
                 }
+                camera.translate(g, ship);
                 //g.drawRect(110, 5, 170, 75);
+                g.drawRect(500, 500, 100, 100);
+                g.drawRect(2000, 500, 100, 100);
                 g.drawString("Location X: "+ship.getX(), 120, 10);
                 g.drawString("Y: "+ship.getY(), 340, 10);
                 
@@ -106,6 +139,9 @@ public class test extends BasicGame
                 
                 g.drawString("Velocity X: "+ship.getFX(), 120, 40);
                 g.drawString("Y: "+ship.getFY(), 340, 40);
+                //debugging camera
+                System.out.println("Camera X: "+camera.getX());
+                System.out.println("Camera Y: "+camera.getY());
                 //g.drawString(ship.getName(),ship.getX(),ship.getY()+40);
                 //g.drawString("angleRad: "+ship.getAngleRad(), 420, 10);
 
@@ -116,7 +152,7 @@ public class test extends BasicGame
 		try
 		{
 			AppGameContainer appgc;
-			appgc = new AppGameContainer(new test("Ship movement"));
+			appgc = new AppGameContainer(new test("Sidescrolling"));
                         appgc.setIcon("ship.png");
                         appgc.setShowFPS(true);
 			appgc.setDisplayMode(WIDTH, HEIGHT, false);
