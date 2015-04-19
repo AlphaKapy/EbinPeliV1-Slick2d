@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="60" height="33" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles1" tilewidth="32" tileheight="32" spacing="2">
+  <image source="JnRTiles.png" width="576" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tiles" width="60" height="33">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3ZsQqAMAxF0VTQ//9kFwUpSVxapS/3QOgQl0fTDnY3s8PGa0F5/S9tV43WHmuW66/co2V72/ct+GY1fR6v9zb3q8kyROd59fzZXaWQD7lo1lX3O7rLVHnnW53y/AIAAAAAgLmi/+FKvLcd9bxVst6q561SJ9gwb9rwHgAA
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="60" height="33"/>
+</map>

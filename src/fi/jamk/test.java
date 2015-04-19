@@ -17,6 +17,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.tiled.TiledMap;
 
 /**
  *
@@ -30,7 +31,8 @@ public class test extends BasicGame
     boolean missileFired = false;
     DecimalFormat df = new DecimalFormat("#.##");
     ParticleTrail missilePT;
-    public static final int WIDTH=1024,HEIGHT=768;
+    public static final int WIDTH=1920,HEIGHT=1080;
+    TiledMap map;
     
 	public test(String gamename)
 	{
@@ -42,7 +44,8 @@ public class test extends BasicGame
         ship = new ControllablePhysicObject(0.25f, 1.0f, 1.0f, 1.0f, XB360WIRED);
         ship.init("ship.png");
             //shipTrans = new Transform();
-            //bg = new Image("bg.jpg");
+            bg = new Image("bg2.png");
+        map = new TiledMap("/map1.tmx",true);
         }
 
 	@Override
@@ -82,7 +85,9 @@ public class test extends BasicGame
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
-                //g.drawImage(bg, 0, 0);
+                g.drawImage(bg, 0, 0);
+                map.render(0, 0);
+                
 		ship.draw();
                 if (missileFired) {
                     missile.draw();
@@ -110,7 +115,7 @@ public class test extends BasicGame
 			appgc = new AppGameContainer(new test("Ship movement"));
                         appgc.setIcon("ship.png");
                         appgc.setShowFPS(true);
-			appgc.setDisplayMode(WIDTH, HEIGHT, false);
+			appgc.setDisplayMode(WIDTH, HEIGHT, true);
                         appgc.setTargetFrameRate(60);
 			appgc.start();
                         
