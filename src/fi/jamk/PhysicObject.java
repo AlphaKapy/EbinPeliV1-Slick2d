@@ -30,6 +30,9 @@ public class PhysicObject
     private Image image;
     private int width, height;
     private final float MAX_DROTATION = 5.0f;
+    
+    //Collision
+    private boolean col;
 
     /**
      *
@@ -194,5 +197,19 @@ public class PhysicObject
     {
         this.posX = posX;
         this.posY = posY;
+    }
+    public void checkBounds(float x, float y){
+        if(x > test.WIDTH-width)
+            x = test.WIDTH-width-5;
+        if(x < 0)
+            x = 0;
+        if(y > test.HEIGHT-height)
+            y=test.HEIGHT-height-5;
+        if(y < 0)
+            y=0;
+    }
+    public boolean checkCollision(int x, int y, int objX, int objY){
+        
+        return col;
     }
 }

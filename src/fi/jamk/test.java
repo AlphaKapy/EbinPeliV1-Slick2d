@@ -32,10 +32,14 @@ public class test extends BasicGame
     public static final int WIDTH=1024,HEIGHT=768;
     Camera camera;
     TiledMap map;
-    int mapHeight;// = 1000, 
-    int mapWidth;//= 3000;
-    int tileHeight;// = 32, 
-    int tileWidth;// = 32;
+    private int mapHeight;// = 1000, 
+    private int mapWidth;//= 3000;
+    private int tileHeight;// = 32, 
+    private int tileWidth;// = 32;
+    private int numbOfTilesRow;
+    private int numbOfTilesColumn;
+    private boolean[][] blocked;
+    private static final int NUMBEROFLAYERS = 2;
     
 	public test(String gamename)
 	{
@@ -44,26 +48,39 @@ public class test extends BasicGame
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
+            
             gc.setAlwaysRender(true);
             gc.setMaximumLogicUpdateInterval(60);
             gc.setTargetFrameRate(60);
             gc.setVSync(true);
-            try{
-                map = new TiledMap("/map1.tmx",true);
-            }catch(Exception e){
-                e.printStackTrace();
-                System.out.println("Failed to load the map");
+            map = new TiledMap("/map1.tmx",true);
+            
+            //map objects
+            int objectGroupCount = map.getObjectGroupCount();
+            for(int gi=0; gi < objectGroupCount; gi++){ //gi = object group index
+                int objectCount = map.getObjectCount(gi);
+                for(int oi=0; oi < objectCount; oi++){ //oi = object index
+                    System.out.println(map.getObjectName(gi, oi));
+                    System.out.println(map.getObjectProperty(gi, oi, "name", ""));
+                }
             }
             
             mapWidth = map.getWidth() * map.getTileWidth();
             mapHeight = map.getHeight() * map.getTileHeight();
             tileHeight = map.getTileHeight();
             tileWidth = map.getTileWidth();
+            
+            numbOfTilesRow = 60;
+            numbOfTilesColumn = 37;
+            blocked = new boolean[numbOfTilesRow][numbOfTilesColumn];
+            //initializeBlocked();
+            
             camera = new Camera(map, mapWidth, mapHeight);
-        ship = new PhysicObject(0.25f, 1.0f, 1.0f, 1.0f);
-        ship.init("ship.png");
+            
+            ship = new PhysicObject(0.25f, 1.0f, 1.0f, 1.0f);
+            ship.init("ship.png");
             //shipTrans = new Transform();
-            bg = new Image("bg.jpg");
+            bg = new Image("bg2.png");
         }
 
 	@Override
@@ -82,14 +99,22 @@ public class test extends BasicGame
 
             if(input.isKeyDown(input.KEY_UP)){
                 ship.accelerate(1);
-                //ship.checkBounds();
+                float SPEED = 0.25f;
+                float x = ship.getX();
+                float y = ship.getY();
+               /* if (!isBlocked(ship.getX() + tileWidth -1, ship.getY() - i * SPEED) && !isBlocked(ship.getX() + 1, ship.getY() - i * SPEED)) {
+                y -= i * SPEED;
+                
+            }*/
+                ship.setPosition(x, y);
+                //ship.checkBounds(ship.getX(),ship.getY());
             }
             
             if(input.isKeyPressed(input.KEY_SPACE)){
                 missile = new PhysicObject(0.25f, 0, 0, 0, ship.getX(), ship.getY(), ship.getCRotation(), 0, 0, ship.getFX(), ship.getFY());
                 missile.init("missile.png");
-                missilePT = new ParticleTrail("smoke-particle.png");
-                missilePT.init();
+               // missilePT = new ParticleTrail("smoke-particle.png");
+                //missilePT.init();
                 missileFired = true;
             }
             
@@ -107,7 +132,7 @@ public class test extends BasicGame
             {
                 missile.accelerate(1);
                 missile.update();
-                missilePT.update(missile.getX(), missile.getY());
+                //missilePT.update(missile.getX(), missile.getY());
             }
         }
 
@@ -125,12 +150,9 @@ public class test extends BasicGame
 		ship.draw();
                 if (missileFired) {
                     missile.draw();
-                    missilePT.draw();
+                    //missilePT.draw();
                 }
                 camera.translate(g, ship);
-                //g.drawRect(110, 5, 170, 75);
-                g.drawRect(500, 500, 100, 100);
-                g.drawRect(2000, 500, 100, 100);
                 g.drawString("Location X: "+ship.getX(), 120, 10);
                 g.drawString("Y: "+ship.getY(), 340, 10);
                 
@@ -140,8 +162,9 @@ public class test extends BasicGame
                 g.drawString("Velocity X: "+ship.getFX(), 120, 40);
                 g.drawString("Y: "+ship.getFY(), 340, 40);
                 //debugging camera
-                System.out.println("Camera X: "+camera.getX());
-                System.out.println("Camera Y: "+camera.getY());
+                //System.out.println("Camera X: "+camera.getX());
+                //System.out.println("Camera Y: "+camera.getY());
+                //end of camera debug
                 //g.drawString(ship.getName(),ship.getX(),ship.getY()+40);
                 //g.drawString("angleRad: "+ship.getAngleRad(), 420, 10);
 
@@ -165,4 +188,26 @@ public class test extends BasicGame
 			Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+         private boolean isBlocked(float x, float y) {
+        int xBlock = (int) x / tileWidth;
+        int yBlock = (int) y / tileHeight;
+        return blocked[xBlock][yBlock];
+    }
+
+    /*private void initializeBlocked() {
+        try {
+        for (int l = 0; l < NUMBEROFLAYERS; l++) {
+            String layerValue = map.getLayerProperty(l, "blocked", "false");
+            if (layerValue.equals("true")) {
+                for (int c = 0; c < numbOfTilesColumn; c++) {
+                    for (int r = 0; r < numbOfTilesRow; r++) {
+                        if (map.getTileId(c, r, l) != 0) {
+                            blocked[c][r] = true;
+                        }
+                    }
+                }
+            }
+        }
+    }catch(IndexOutOfBoundsException e){ e.printStackTrace();} 
+    }*/
 }
