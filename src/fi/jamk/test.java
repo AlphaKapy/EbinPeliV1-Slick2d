@@ -53,7 +53,7 @@ public class test extends BasicGame
 
             ship.updateControls(gc);
             
-            if(input.isButton1Pressed(4)){
+            if(input.isButton1Pressed(ship.getControllerID())){
                 missile = new PhysicObject(0.25f, 0, 0, 0, ship.getX(), ship.getY(), ship.getCRotation(), 0, 0, ship.getFX(), ship.getFY());
                 missile.init("missile.png");
                 missilePT = new ParticleTrail("smoke-particle.png");

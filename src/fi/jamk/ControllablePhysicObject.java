@@ -11,14 +11,13 @@ public class ControllablePhysicObject extends PhysicObject
 {
     public static enum ControllerTypes {KB1, KB2, XB360WIRED};
     private ControllerTypes ctrlType;
-    private int ctrlrID = Controllers.getControllerCount();
+    private int ctrlrID = 4;
     
 
     public ControllablePhysicObject(float acceleration, float turnrate, float aerodynamy, float lift, ControllerTypes ctrlType)
     {
         super(acceleration, turnrate, aerodynamy, lift);
         this.ctrlType = ctrlType;
-        this.ctrlrID = Input.ANY_CONTROLLER;
         
     }
 
@@ -26,7 +25,6 @@ public class ControllablePhysicObject extends PhysicObject
     {
         super(acceleration, turnrate, aerodynamy, lift, posX, posY, cRotation, drag, gravity, forceX, forceY);
         this.ctrlType = ctrlType;
-        this.ctrlrID = Input.ANY_CONTROLLER;
     }
     
     public void updateControls(GameContainer gc)
@@ -46,11 +44,16 @@ public class ControllablePhysicObject extends PhysicObject
                 if (input.isKeyDown(input.KEY_LEFT)) super.rotate(-1);
                 break;
             case XB360WIRED:
-                if (input.isButtonPressed(4, 4)) super.accelerate(1);
-                if (input.isControllerRight(4)) super.rotate(1);
-                if (input.isControllerLeft(4)) super.rotate(-1);
+                if (input.isButtonPressed(4, ctrlrID)) super.accelerate(1);
+                if (input.isControllerRight(ctrlrID)) super.rotate(1);
+                if (input.isControllerLeft(ctrlrID)) super.rotate(-1);
                 break;
         }
+    }
+    
+    public int getControllerID()
+    {
+        return this.ctrlrID;
     }
 
 }
