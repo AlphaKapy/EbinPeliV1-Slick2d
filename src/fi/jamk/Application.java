@@ -17,9 +17,10 @@ import org.newdawn.slick.state.BasicGameState;
  */
 public class Application extends BasicGame
 {
-    Stack<BasicGameState> gameStateStack = new Stack();
+    public Stack<BasicGameState> gameStateStack = new Stack();
     
     MainMenu MAINMENU = new MainMenu();
+    
     
     private static int WIDTH = 1600, HEIGHT = 800;
     
@@ -35,6 +36,7 @@ public class Application extends BasicGame
             AppGameContainer appgc;
             appgc = new AppGameContainer(new Application("Ebin Game"));
             appgc.setShowFPS(true);
+            appgc.setTargetFrameRate(60);
             appgc.setDisplayMode(WIDTH, HEIGHT, false);
             appgc.start();
         }
@@ -48,6 +50,7 @@ public class Application extends BasicGame
     public void init(GameContainer gc) throws SlickException
     {
         gameStateStack.push(MAINMENU);
+        MAINMENU.init(gc, null);
     }
 
     @Override

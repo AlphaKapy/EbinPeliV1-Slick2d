@@ -2,6 +2,7 @@ package fi.jamk;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
@@ -13,9 +14,12 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class MainMenu extends BasicGameState
 {
+    world1 world = new world1();
     private int cursorX = 85,cursorY = 250;
     private final int PLAY1V1 = 250, SETTINGS = 275, EXIT = 300;
     private final int CURSOR_MAX = 300, CURSOR_MIN = 250, CURSOR_STEP = 25, CURSOR_SELECT = 85, CURSOR_EDIT = 300;
+    
+    private Image bg;
     
     private enum MENU_STATES {MAIN_MENU, PLAY1V1, SETTINGS};
     private MENU_STATES menuState = MENU_STATES.MAIN_MENU;
@@ -29,12 +33,17 @@ public class MainMenu extends BasicGameState
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Main menu");
+        try{
+        bg = new Image("res/bg2.png");
+        System.out.println(bg.getName()+", Image found");
+        }catch(SlickException e){System.out.println("Image not found");}
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException
     {
+        g.drawImage(bg, 0, 0);
         g.drawString(" _______ __     __           ________ __                       _______ _______ ______ _______ \n"
                 +    "|    ___|  |--.|__|.-----.  |  |  |  |__|.-----.-----.-----.  |   |   |       |   __ \\   _   |\n"
                 +    "|    ___|  _  ||  ||     |  |  |  |  |  ||     |  _  |__ --|  |       |   -   |   __ <       |\n"
@@ -63,6 +72,10 @@ public class MainMenu extends BasicGameState
         switch(menuState)
         {
             case MAIN_MENU:
+                //debug
+                if(input.isKeyPressed(input.KEY_TAB)){
+                    
+                }
                 // Choosing menu
                 if (input.isKeyPressed(input.KEY_W) || input.isKeyPressed(input.KEY_UP)) cursorUp();
                 // Choosing menu
