@@ -16,6 +16,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -35,6 +36,11 @@ public class test extends BasicGame
     TiledMap map;
     TeamBase tmb1,tmb2;
     Faction blowers, crackers;
+    
+    boolean introPlayed;
+    
+    Music loop;
+    Music intro;
     
 	public test(String gamename)
 	{
@@ -56,6 +62,12 @@ public class test extends BasicGame
         ship.init("ship_red.png");
         crackers.addToFaction(1, 1);
             //shipTrans = new Transform();
+        
+        loop = new Music("loop.ogg");
+        intro = new Music("intro.ogg");
+        
+        intro.play();
+        System.out.println(intro.getPosition());
         }
 
 	@Override
@@ -63,6 +75,16 @@ public class test extends BasicGame
             //Game logic
             //input
             Input input = gc.getInput();
+            if(intro.getPosition() > 19.0 && !introPlayed){
+                intro.stop();
+                System.out.println("Looping loop");
+                introPlayed = true;
+                loop.setVolume(0);
+                loop.loop();
+                loop.setVolume(1);
+            }
+            else if(!introPlayed)
+                System.out.println("Intro position: "+intro.getPosition());
 
             ship.updateControls(gc);
             
@@ -126,7 +148,7 @@ public class test extends BasicGame
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new test("collision"));
                         appgc.setIcon("ship_red.png");
-                        appgc.setShowFPS(false);
+                        appgc.setShowFPS(true);
 			appgc.setDisplayMode(WIDTH, HEIGHT, false);
                         appgc.setTargetFrameRate(60);
 			appgc.start();
