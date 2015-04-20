@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -46,7 +47,11 @@ public class test extends BasicGame
     //collision
     private Rectangle colBox;
     private Rectangle groundColBox;
+    private Rectangle base1ColBox;
+    private Rectangle base2ColBox;
     boolean ship1Collides;
+    private Rectangle missile1Colbox;
+    boolean missile1Collides;
     
 	public test(String gamename)
 	{
@@ -78,8 +83,12 @@ public class test extends BasicGame
         intro.play();
         System.out.println(intro.getPosition());
         //collision
-        groundColBox = new Rectangle(0, HEIGHT-64, WIDTH, 32);
+        groundColBox = new Rectangle(0, HEIGHT-64, WIDTH, 64);
         colBox = new Rectangle(ship.getX(), ship.getY(), 32, 32);
+        base1ColBox = new Rectangle(0,HEIGHT-156,32*3,32*4);
+        base2ColBox = new Rectangle(WIDTH-32*3,HEIGHT-156,32*3,32*4);
+        missile1Colbox = new Rectangle(0, 0, 40, 20);
+        
         }
 
 	@Override
@@ -101,13 +110,14 @@ public class test extends BasicGame
 
             ship.updateControls(gc);
             
-            if(input.isButton1Pressed(ship.getControllerID())){
+            if(input.isKeyDown(input.KEY_SPACE)){ //if(input.isButton1Pressed(ship.getControllerID())){
                 missile = new PhysicObject(0.25f, 0, 0, 0, ship.getX(), ship.getY(), ship.getCRotation(), 0, 0, ship.getFX(), ship.getFY());
                 missile.init("missile.png");
                 missilePT = new ParticleTrail("smoke-particle.png");
                 missilePT.init();
                 missileFired = true;
             }
+
             
             if (input.isKeyDown(input.KEY_R)) {
                 ship.setForce(0, 0);
@@ -124,6 +134,8 @@ public class test extends BasicGame
                 missile.accelerate(1);
                 missile.update();
                 missilePT.update(missile.getX(), missile.getY());
+                //missile collision
+                missile1Colbox.setLocation(missile.getX(), missile.getY());
             }
             //collision
             colBox.setLocation(ship.getX(), ship.getY());
@@ -132,9 +144,32 @@ public class test extends BasicGame
                     ship1Collides = false;
                     
                 }
+            if(!colBox.intersects(base1ColBox)){
+                ship1Collides = false;
+            }
+            if(!colBox.intersects(base2ColBox)){
+                ship1Collides = false;
+            }
             else{
                 ship1Collides = true;
                 System.out.println("Collision!");
+                ship.setForce((1/2)*-1*(ship.getFX()), (1/2)*-1*(ship.getY()));
+            }
+            /*if(ship1Collides){
+                ship.setForce((1/2)*-1*(ship.getFX()), (1/2)*-1*(ship.getY()));
+            }*/
+            //missile collision
+            if(!missile1Colbox.intersects(base1ColBox)){
+                missile1Collides = false;
+                
+            }
+            if(!missile1Colbox.intersects(base2ColBox)){
+                missile1Collides = false;
+            }
+            else{
+                missile1Collides = true;
+                System.out.println("Missile collides with base");
+                System.exit(0);
             }
         }
 
@@ -160,6 +195,10 @@ public class test extends BasicGame
                 
                 g.drawString("Velocity X: "+ship.getFX(), 120, 40);
                 g.drawString("Y: "+ship.getFY(), 340, 40);
+                
+                g.setColor(Color.green);
+                g.draw(base1ColBox);
+                g.draw(base2ColBox);
                 //g.drawString(ship.getName(),ship.getX(),ship.getY()+40);
                 //g.drawString("angleRad: "+ship.getAngleRad(), 420, 10);
 
@@ -174,6 +213,7 @@ public class test extends BasicGame
                         appgc.setIcon("ship_red.png");
                         appgc.setShowFPS(true);
 			appgc.setDisplayMode(WIDTH, HEIGHT, false);
+                        appgc.setFullscreen(true);
                         appgc.setTargetFrameRate(60);
 			appgc.start();
                         

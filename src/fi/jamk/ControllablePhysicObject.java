@@ -37,6 +37,7 @@ public class ControllablePhysicObject extends PhysicObject
                 if (input.isKeyDown(input.KEY_W)) super.accelerate(1);
                 if (input.isKeyDown(input.KEY_D)) super.rotate(1);
                 if (input.isKeyDown(input.KEY_A)) super.rotate(-1);
+                //if(input.isKeyDown(input.KEY_SPACE)) 
                 break;
             case KB2:
                 if (input.isKeyDown(input.KEY_UP)) super.accelerate(1);
