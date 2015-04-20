@@ -18,6 +18,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tiled.TiledMap;
 
 /**
@@ -42,6 +43,11 @@ public class test extends BasicGame
     Music loop;
     Music intro;
     
+    //collision
+    private Rectangle colBox;
+    private Rectangle groundColBox;
+    boolean ship1Collides;
+    
 	public test(String gamename)
 	{
 		super(gamename);
@@ -63,11 +69,17 @@ public class test extends BasicGame
         crackers.addToFaction(1, 1);
             //shipTrans = new Transform();
         
+        
         loop = new Music("loop.ogg");
         intro = new Music("intro.ogg");
         
+        
+        
         intro.play();
         System.out.println(intro.getPosition());
+        //collision
+        groundColBox = new Rectangle(0, HEIGHT-64, WIDTH, 32);
+        colBox = new Rectangle(ship.getX(), ship.getY(), 32, 32);
         }
 
 	@Override
@@ -79,11 +91,11 @@ public class test extends BasicGame
                 intro.stop();
                 System.out.println("Looping loop");
                 introPlayed = true;
-                loop.play();
+                loop.loop();
             }
-            else if (introPlayed && loop.getPosition() > 24.0) {
+            /*else if (introPlayed && loop.getPosition() > 24.0) {
                 loop.play();
-            }
+            }*/
             else if(!introPlayed)
                 System.out.println("Intro position: "+intro.getPosition());
 
@@ -112,6 +124,17 @@ public class test extends BasicGame
                 missile.accelerate(1);
                 missile.update();
                 missilePT.update(missile.getX(), missile.getY());
+            }
+            //collision
+            colBox.setLocation(ship.getX(), ship.getY());
+            //check for collisions
+            if(!colBox.intersects(groundColBox)){
+                    ship1Collides = false;
+                    
+                }
+            else{
+                ship1Collides = true;
+                System.out.println("Collision!");
             }
         }
 
