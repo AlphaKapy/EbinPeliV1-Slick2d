@@ -4,6 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -14,7 +15,8 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class MainMenu extends BasicGameState
 {
-    world1 world = new world1();
+    //world1 world = new world1();
+    Music music;
     private int cursorX = 85,cursorY = 250;
     private final int PLAY1V1 = 250, SETTINGS = 275, EXIT = 300;
     private final int CURSOR_MAX = 300, CURSOR_MIN = 250, CURSOR_STEP = 25, CURSOR_SELECT = 85, CURSOR_EDIT = 300;
@@ -27,7 +29,7 @@ public class MainMenu extends BasicGameState
     @Override
     public int getID()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 0;
     }
 
     @Override
@@ -38,6 +40,10 @@ public class MainMenu extends BasicGameState
         bg = new Image("res/bg2.png");
         System.out.println(bg.getName()+", Image found");
         }catch(SlickException e){System.out.println("Image not found");}
+        music = new Music("/music.ogg");
+        //music.play();
+        System.out.println("Starting music playback");
+        music.loop((float)1.0,(float) 0.4);
     }
 
     @Override
@@ -74,6 +80,8 @@ public class MainMenu extends BasicGameState
             case MAIN_MENU:
                 //debug
                 if(input.isKeyPressed(input.KEY_TAB)){
+                    System.out.println("Entering world1");
+                    sbg.enterState(1);
                     
                 }
                 // Choosing menu

@@ -26,6 +26,7 @@ public class Application extends BasicGame
     public Application(String appName)
     {
         super(appName);
+        
     }
     
     public static void main(String[] args)

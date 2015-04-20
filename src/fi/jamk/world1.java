@@ -33,11 +33,12 @@ public class world1 extends BasicGameState {
 
     @Override
     public int getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 1;
     }
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        System.out.println("Initiliazing world1");
         bg = new Image("res/bg2.png");
         map = new TiledMap("/res/map1.tmx",true);
         blowers = new Faction(1,"blowers");
