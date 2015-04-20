@@ -43,10 +43,8 @@ public class test extends BasicGame
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
-        ship = new ControllablePhysicObject(0.25f, 1.0f, 1.0f, 1.0f, XB360WIRED);
-        ship.init("ship_red.png");
-            //shipTrans = new Transform();
-            bg = new Image("bg2.png");
+       
+        bg = new Image("bg2.png");
         map = new TiledMap("/map1.tmx",true);
         blowers = new Faction(1,"blowers");
         crackers = new Faction(2,"crackers");
@@ -54,6 +52,10 @@ public class test extends BasicGame
         blowers.addToFaction(1,100);
         tmb2 = new TeamBase(WIDTH-128, HEIGHT-120, 2, "Blowers", "base_blue.png");
         blowers.addToFaction(2, 200);
+         ship = new ShipV3(0.25f, 1.0f, 1.0f, 1.0f, KB1);
+        ship.init("ship_red.png");
+        crackers.addToFaction(1, 1);
+            //shipTrans = new Transform();
         }
 
 	@Override
@@ -122,7 +124,7 @@ public class test extends BasicGame
 		try
 		{
 			AppGameContainer appgc;
-			appgc = new AppGameContainer(new test("Ship movement"));
+			appgc = new AppGameContainer(new test("collision"));
                         appgc.setIcon("ship_red.png");
                         appgc.setShowFPS(false);
 			appgc.setDisplayMode(WIDTH, HEIGHT, false);

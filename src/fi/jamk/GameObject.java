@@ -12,5 +12,6 @@ package fi.jamk;
 public class GameObject {
     private int objectID;
     private String objectType;
+    private int factionID;
     
 }

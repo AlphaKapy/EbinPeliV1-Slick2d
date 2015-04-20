@@ -8,7 +8,7 @@ import org.newdawn.slick.Image;
  * <p>
  * @author Matias Kivikoura
  */
-public class PhysicObject
+public class PhysicObject extends GameObject
 {
 
     // Constants which are configurable
