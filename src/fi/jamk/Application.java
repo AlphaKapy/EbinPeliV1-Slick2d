@@ -21,7 +21,6 @@ public class Application extends BasicGame
     
     MainMenu MAINMENU = new MainMenu();
     
-    
     private static int WIDTH = 1600, HEIGHT = 800;
     
     public Application(String appName)
@@ -63,5 +62,21 @@ public class Application extends BasicGame
     public void render(GameContainer gc, Graphics grphcs) throws SlickException
     {
         gameStateStack.peek().render(gc, null, grphcs);
+    }
+    
+    /**
+    * Pushes new game state on top of stack
+    */
+    public void push(BasicGameState bsg)
+    {
+        gameStateStack.push(bsg);
+    }
+    
+    /**
+     * Removes top most game state from stack
+     */
+    public void pop()
+    {
+        gameStateStack.pop();
     }
 }
