@@ -7,6 +7,7 @@ package fi.jamk;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -15,7 +16,7 @@ import org.newdawn.slick.SlickException;
  *
  * @author Ghost
  */
-public class TeamBase{
+public class TeamBase extends GameObject{
     private int posX, posY, teamID;
     private String teamName;
     private String imgPath;
@@ -41,8 +42,9 @@ public class TeamBase{
     
     public void render(Graphics g){
         g.drawImage(img, posX, posY);
-        g.drawRect(posX, posY, img.getWidth(),img.getHeight());
-        g.drawImage(shield,posX,posY);
+        g.drawRect(posX, posY, img.getWidth(),img.getHeight()); //debug square
+        g.setColor(Color.transparent); //debug square invisible
+        //g.drawImage(shield,posX,posY); //shield is not used
 
     }
     

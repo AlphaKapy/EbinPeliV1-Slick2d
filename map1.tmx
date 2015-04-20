@@ -13,7 +13,7 @@
  </tileset>
  <layer name="Tiles" width="60" height="33">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3ZQQqAMAxE0VRUvP+JRbAgJYkuqtLhPwgu4mZo2kW7mNlq/ZWgvP6XprN6K5dvluuv3L1la9v2LfhnNG0er3c396PJMkT7efT82VmlkA+5aNZV1zs6y1R5+1ud8vwCAAAAAIB3RffhSry3HfW8tTbTzlodGWfTX9vqyZuGYu3zPCyk8B4AAA==
+   H4sIAAAAAAAAC+3PwQkAMAwDsXT/pfsqDRnBkcD4fVUAAAAAAADwnfGJemNfqtmZ3Pps792yCwdhMnzwHgAA
   </data>
  </layer>
  <objectgroup name="Objects" width="60" height="33"/>

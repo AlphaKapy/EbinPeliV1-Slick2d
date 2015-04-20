@@ -34,6 +34,7 @@ public class test extends BasicGame
     public static final int WIDTH=1920,HEIGHT=1080;
     TiledMap map;
     TeamBase tmb1,tmb2;
+    Faction blowers, crackers;
     
 	public test(String gamename)
 	{
@@ -43,12 +44,16 @@ public class test extends BasicGame
 	@Override
 	public void init(GameContainer gc) throws SlickException {
         ship = new ControllablePhysicObject(0.25f, 1.0f, 1.0f, 1.0f, XB360WIRED);
-        ship.init("ship.png");
+        ship.init("ship_red.png");
             //shipTrans = new Transform();
             bg = new Image("bg2.png");
         map = new TiledMap("/map1.tmx",true);
-        tmb1 = new TeamBase(0, HEIGHT-120, 1, "Crackers", "base1.png");
-        tmb2 = new TeamBase(WIDTH-64, HEIGHT-120, 2, "Blowers", "base1.png");
+        blowers = new Faction(1,"blowers");
+        crackers = new Faction(2,"crackers");
+        tmb1 = new TeamBase(64, HEIGHT-120, 1, "Crackers", "base_red.png");
+        blowers.addToFaction(1,100);
+        tmb2 = new TeamBase(WIDTH-128, HEIGHT-120, 2, "Blowers", "base_blue.png");
+        blowers.addToFaction(2, 200);
         }
 
 	@Override
@@ -118,7 +123,7 @@ public class test extends BasicGame
 		{
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new test("Ship movement"));
-                        appgc.setIcon("ship.png");
+                        appgc.setIcon("ship_red.png");
                         appgc.setShowFPS(false);
 			appgc.setDisplayMode(WIDTH, HEIGHT, false);
                         appgc.setTargetFrameRate(60);
