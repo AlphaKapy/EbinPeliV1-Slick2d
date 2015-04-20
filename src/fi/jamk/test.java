@@ -75,13 +75,14 @@ public class test extends BasicGame
             //Game logic
             //input
             Input input = gc.getInput();
-            if(intro.getPosition() > 19.0 && !introPlayed){
+            if(intro.getPosition() > 48.0 && !introPlayed){
                 intro.stop();
                 System.out.println("Looping loop");
                 introPlayed = true;
-                loop.setVolume(0);
-                loop.loop();
-                loop.setVolume(1);
+                loop.play();
+            }
+            else if (introPlayed && loop.getPosition() > 24.0) {
+                loop.play();
             }
             else if(!introPlayed)
                 System.out.println("Intro position: "+intro.getPosition());
