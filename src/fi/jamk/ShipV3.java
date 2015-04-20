@@ -5,6 +5,10 @@
  */
 package fi.jamk;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+
 /**
  *
  * @author Ghost
@@ -14,5 +18,6 @@ public class ShipV3 extends ControllablePhysicObject {
     public ShipV3(float acceleration, float turnrate, float aerodynamy, float lift, ControllerTypes ctrlType) {
         super(acceleration, turnrate, aerodynamy, lift, ctrlType);
     }
+
     
 }
