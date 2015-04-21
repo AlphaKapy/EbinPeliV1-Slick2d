@@ -34,11 +34,7 @@ public class world1 extends BasicGameState {
     private TeamBase tmb1,tmb2;
     private Faction blowers, crackers;
     
-    boolean introPlayed;
-    
-    private Music loop;
-    private Music intro;
-    
+    private MusicMg musMg;
     //collision
     private Rectangle colBox;
     private Rectangle groundColBox;
@@ -60,12 +56,15 @@ public class world1 extends BasicGameState {
         System.out.println("Initiliazing world1");
         bg = new Image("res/bg2.png");
         map = new TiledMap("/res/map1.tmx",true);
+        
         blowers = new Faction(1,"blowers");
         crackers = new Faction(2,"crackers");
+        
         tmb1 = new TeamBase(64, HEIGHT-120, 1, "Crackers", "res/base_red.png");
         blowers.addToFaction(1,100);
         tmb2 = new TeamBase(WIDTH-128, HEIGHT-120, 2, "Blowers", "res/base_blue.png");
         blowers.addToFaction(2, 200);
+        
          ship = new ShipV3(0.25f, 1.0f, 1.0f, 1.0f,ControllablePhysicObject.ControllerTypes.KB1);
          ship2 = new ShipV3(0.25f, 1.0f, 1.0f, 1.0f,ControllablePhysicObject.ControllerTypes.XB360WIRED);
         ship.init("res/ship_red.png");
@@ -74,8 +73,6 @@ public class world1 extends BasicGameState {
         ship2.setPosition(1920-64, 32);
         crackers.addToFaction(1, 1);
             //shipTrans = new Transform();
-        loop = new Music("loop.ogg");
-        intro = new Music("intro.ogg");
         
         //collision
         groundColBox = new Rectangle(0, HEIGHT-64, WIDTH, 64);
@@ -84,6 +81,9 @@ public class world1 extends BasicGameState {
         base2ColBox = new Rectangle(WIDTH-32*3,HEIGHT-156,32*3,32*4);
         missile1Colbox = new Rectangle(0, 0, 40, 20);
         
+        //music
+        musMg = new MusicMg();
+        musMg.MusicMg();
     }
 
     @Override
@@ -119,19 +119,8 @@ public class world1 extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
          Input input = gc.getInput();
-         
-         if(intro.getPosition() > 48.0 && !introPlayed){
-                intro.stop();
-                System.out.println("Looping loop");
-                introPlayed = true;
-                loop.loop();
-            }
-            /*else if (introPlayed && loop.getPosition() > 24.0) {
-                loop.play();
-            }*/
-            else if(!introPlayed)
-                System.out.println("Intro position: "+intro.getPosition());
 
+            
             ship.updateControls(gc);
             ship2.updateControls(gc);
             
@@ -160,10 +149,11 @@ public class world1 extends BasicGameState {
                 System.exit(0);
             }
             
+            //ship.boundryCheck(ship); //these are relocated to physic object
+            //ship2.boundryCheck(ship2);
             ship.update();
-            ship.boundryCheck(ship);
             ship2.update();
-            ship2.boundryCheck(ship2);
+            
             if (missileFired)
             {
                 missile.accelerate(1);
@@ -209,6 +199,7 @@ public class world1 extends BasicGameState {
                 System.out.println("Missile collides with base");
                 System.exit(0);
             }
+            musMg.introLoop();
 
         }
 

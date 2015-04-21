@@ -55,21 +55,5 @@ public class ControllablePhysicObject extends PhysicObject
     {
         return this.ctrlrID;
     }
-    public void boundryCheck(ControllablePhysicObject obj){ //Still broken
-        if(obj.getX() > Application.WIDTH || obj.getX() < Application.WIDTH){
-            //obj.setForce((float)0.5/ obj.getFX(), obj.getFY());
-            //obj.setDRotation(180+ obj.getCRotation());
-            System.out.println("Boundry collision X");
-        }
-        if(obj.getY() == Application.HEIGHT || obj.getY() < Application.HEIGHT){
-           //obj.setForce(obj.getFX(), -1*obj.getFY());
-            //obj.setDRotation(180+ obj.getCRotation());
-            System.out.println("Boundry collision Y");
-        }
-        else
-            obj.setForce(obj.getFX(), obj.getFY());
-        //debug output
-        
-    }
 
 }

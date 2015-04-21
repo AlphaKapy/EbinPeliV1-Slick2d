@@ -17,7 +17,8 @@ import org.newdawn.slick.state.StateBasedGame;
 public class MainMenu extends BasicGameState
 {
     //world1 world = new world1();
-    private Music music;
+    //private Music music;
+    private MusicMg musMg;
     private int cursorX = 85,cursorY = 250;
     private final int PLAY1V1 = 250, SETTINGS = 275, EXIT = 300;
     private final int CURSOR_MAX = 300, CURSOR_MIN = 250, CURSOR_STEP = 25, CURSOR_SELECT = 85, CURSOR_EDIT = 300;
@@ -42,10 +43,13 @@ public class MainMenu extends BasicGameState
         bg = new Image("res/bg2.png");
         System.out.println(bg.getName()+", Image found");
         }catch(SlickException e){System.out.println("Image not found");}
-        music = new Music("/music.ogg");
+        //music = new Music("/music.ogg");
         //music.play();
-        System.out.println("Starting music playback");
-        music.loop((float)1.0,(float) 0.4);
+        //System.out.println("Starting music playback");
+        //music.loop((float)1.0,(float) 0.4);
+        musMg= new MusicMg();
+        musMg.MusicMg();
+        musMg.menuMusic();
         
         //sbg.addState(world);
     }
@@ -84,7 +88,7 @@ public class MainMenu extends BasicGameState
             case MAIN_MENU:
                 //debug
                 if(input.isKeyPressed(input.KEY_TAB)){
-                    music.stop();
+                    musMg.stopMenuMusic();
                     System.out.println("Entering world1");
                     sbg.enterState(1);
                     

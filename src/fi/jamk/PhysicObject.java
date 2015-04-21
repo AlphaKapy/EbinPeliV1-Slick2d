@@ -119,6 +119,7 @@ public class PhysicObject
         this.posY += forceY;
         this.dRotation *= 0.9f;
         this.cRotation += this.dRotation;
+        this.boundryCheck(this);
     }
 
     /**
@@ -144,6 +145,23 @@ public class PhysicObject
         {
             this.dRotation = MAX_DROTATION * direction;
         }
+    }
+    public void boundryCheck(PhysicObject obj){ //Still broken
+        if(obj.getX() > Application.WIDTH || obj.getX() < 0){
+            obj.setForce(-1*obj.getFX(), obj.getFY());
+            //obj.setForce(0,0);
+            System.out.println(obj+"Boundry collision X");
+        }
+        if(obj.getY() > Application.HEIGHT || obj.getY() < 0){
+           obj.setForce(obj.getFX(), -1*obj.getFY());
+           //obj.setForce(0,0);
+            //obj.setCRotation(90+ obj.getCRotation());
+            System.out.println(obj+"Boundry collision Y");
+        }
+        else
+            obj.setForce(obj.getFX(), obj.getFY());
+        //debug output
+        
     }
 
     public float getX()
