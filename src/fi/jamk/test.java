@@ -144,10 +144,10 @@ public class test extends BasicGame
                     ship1Collides = false;
                     
                 }
-            if(!colBox.intersects(base1ColBox)){
+            else if(!colBox.intersects(base1ColBox)){
                 ship1Collides = false;
             }
-            if(!colBox.intersects(base2ColBox)){
+            else if(!colBox.intersects(base2ColBox)){
                 ship1Collides = false;
             }
             else{
@@ -199,6 +199,7 @@ public class test extends BasicGame
                 g.setColor(Color.green);
                 g.draw(base1ColBox);
                 g.draw(base2ColBox);
+                g.draw(groundColBox);
                 //g.drawString(ship.getName(),ship.getX(),ship.getY()+40);
                 //g.drawString("angleRad: "+ship.getAngleRad(), 420, 10);
 
