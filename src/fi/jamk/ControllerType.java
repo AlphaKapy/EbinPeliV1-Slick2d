@@ -3,7 +3,7 @@ package fi.jamk;
 /**
 * @author Matias Kivikoura
 */
-public enum Faction
+public enum ControllerType
 {
-    BLUFOR, REDFOR, NEUTRAL
+    KB1, KB2, XB360WIRED
 }

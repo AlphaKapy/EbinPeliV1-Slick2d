@@ -3,7 +3,7 @@ package fi.jamk;
 /**
 * @author Matias Kivikoura
 */
-public enum Faction
+public class Soldier extends GameObject.Physic
 {
-    BLUFOR, REDFOR, NEUTRAL
+    
 }
