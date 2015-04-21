@@ -5,5 +5,5 @@ package fi.jamk;
 */
 public enum CollisionType
 {
-    NO_COLLISION, BOUNCING, DESTROY
+    NO_COLLISION, BOUNCE, DESTROY
 }

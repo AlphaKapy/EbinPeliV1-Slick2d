@@ -14,11 +14,59 @@ public class GameObject
     private float dRot, cRot;
     private Image image;
     private Faction faction;
-    private Rectangle collBox;
     private CollisionType collType;
     private Physic physic;
     
-    public void render(Graphics g)
+    public GameObject()
+    {
+        
+    }
+    
+    /**
+     * Static GameObject
+     * <p>
+     * @param posX
+     * @param posY
+     * @param image
+     * @param faction
+     * @param collType 
+     */
+    public GameObject(float posX, float posY, Image image, Faction faction, CollisionType collType)
+    {
+        this.posX = posX;
+        this.posY = posY;
+        this.image = image;
+        this.faction = faction;
+        this.collType = collType;
+    }
+
+    /**
+     * GameObject with Physics
+     * <p>
+     * @param posX
+     * @param posY
+     * @param dRot
+     * @param cRot
+     * @param image
+     * @param faction
+     * @param collType
+     * @param physic 
+     */
+    public GameObject(float posX, float posY, float dRot, float cRot, Image image, Faction faction, CollisionType collType, Physic physic)
+    {
+        this.posX = posX;
+        this.posY = posY;
+        this.dRot = dRot;
+        this.cRot = cRot;
+        this.image = image;
+        this.faction = faction;
+        this.collType = collType;
+        this.physic = physic;
+    }
+    
+    
+    
+    public void render(GameContainer gc, Graphics g)
     {
         image.draw(posX, posY);
         image.rotate(dRot);
@@ -35,56 +83,15 @@ public class GameObject
         this.posY = posY;
     }
     
-    // GameObject with physics
-    public class Physic extends GameObject
+    public void move(float forceX, float forceY)
     {
-        private float acceleration, turnrate;
-        private float forceX, forceY;
-        
-        private final float MAX_DROTATION = 5;
-        
-        @Override
-        public void update(GameContainer gc)
-        {
-            // Gravity
-            this.forceY += Game.GRAVITY;
-            
-            // Drag
-            this.forceX -= Game.DRAG * this.forceX;
-            this.forceY -= Game.DRAG * this.forceY;
-            
-            // Position
-            super.posX += this.forceX;
-            super.posY += this.forceY;
-            super.dRot *= 0.9f;
-            super.cRot += super.dRot;
-        }
-        
-        public void accelerate(int dir)
-        {
-            this.forceX += (float) Math.cos(Math.toRadians(cRot)) * acceleration * dir;
-            this.forceY += (float) Math.sin(Math.toRadians(cRot)) * acceleration * dir;
-        }
-        
-        public void rotate(int dir)
-        {
-            if (super.dRot <= MAX_DROTATION && super.dRot >= -MAX_DROTATION)
-            {
-                super.dRot += this.turnrate * dir;
-            }
-            else
-            {
-                super.dRot = MAX_DROTATION * dir;
-            }
-        }
-                
-        
-        private Controllable controllable;
-        
-        // GameObject.Physic with controls
-        public class Controllable extends Physic
-        {
-            private ControllerType ctrlrType;
-        }
+        this.posX += forceX;
+        this.posY += forceY;
     }
+    
+    public void setDRotation(float dRot) { this.dRot = dRot; }
+    public void setCRotation(float cRot) { this.cRot = cRot; }
+    
+    public float getDRotation() { return dRot; }
+    public float getCRotation() { return cRot; }
 }

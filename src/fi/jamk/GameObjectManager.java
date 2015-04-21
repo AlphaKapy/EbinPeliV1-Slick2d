@@ -10,6 +10,11 @@ public class GameObjectManager
 {
     ArrayList<GameObject> objectList;
     
+    public GameObjectManager()
+    {
+        objectList = new ArrayList();
+    }
+    
     public void add(GameObject gameObject)
     {
         objectList.add(gameObject);
@@ -28,11 +33,11 @@ public class GameObjectManager
         }
     }
     
-    public void render(Graphics g)
+    public void render(GameContainer gc, Graphics g)
     {
         for(GameObject gb : objectList)
         {
-            gb.render(g);
+            gb.render(gc, g);
         }
     }
 }

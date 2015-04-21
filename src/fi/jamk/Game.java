@@ -1,7 +1,6 @@
 package fi.jamk;
 
 import org.newdawn.slick.*;
-import org.newdawn.slick.geom.Rectangle;
 
 /**
 * @author Matias Kivikoura
@@ -13,16 +12,25 @@ public class Game extends BasicGame
     public GameObjectManager objectManager;
     private ControllerType ctrlrType;
     
-    private Player RedPlayer, BluPlayer;
-    private Soldier RedSoldier, BluSoldier;
-    private Base RedBase, BluBase;
-    
     private boolean inIntro = true;
     private Music intro, loop;
     
-    // Background properties
-    private GameObject bg;
-    private GameObject ground;
+    // Game objects
+    private Image bgImage;
+    private GameObject shipGO;
+    private PhysicObject ship;
+    
+    private ControllableObject bluPlayer;
+    private Image bluPlayerImage;
+    
+    private ControllableObject redPlayer;
+    private Image redPlayerImage;
+    
+    private GameObject bluBase;
+    private Image bluBaseImage;
+    
+    private GameObject redBase;
+    private Image redBaseImage;
 
     public Game(String title)
     {
@@ -32,22 +40,25 @@ public class Game extends BasicGame
     @Override
     public void init(GameContainer gc) throws SlickException
     {
+        objectManager = new GameObjectManager();
+        
+        // Initialize images
+        bgImage = new Image("bg.png");
+        bluBaseImage = new Image("base_blue.png");
+        redBaseImage = new Image("base_red.png");
+        bluPlayerImage = new Image("ship_blue.png");
+        redPlayerImage = new Image("ship_red.png");
         
         // Create new gameobjects
-        BluPlayer = new Player(ctrlrType.KB1);
-        RedPlayer = new Player(ctrlrType.XB360WIRED);
-        BluBase = new Base();
-        RedBase = new Base();
-        bg = new GameObject();
-        ground = new GameObject();
+        bluPlayer = new ControllableObject(ControllerType.KB1, ship);
+        bluBase = new GameObject(0,930-bluBaseImage.getHeight() , bluBaseImage, Faction.BLUFOR, CollisionType.DESTROY);
+        redBase = new GameObject(1920-redBaseImage.getWidth(), 930-redBaseImage.getHeight(), redBaseImage, Faction.REDFOR, CollisionType.DESTROY);
         
         // Add gameobjects to manager
-        objectManager.add(bg);
-        objectManager.add(ground);
-        objectManager.add(BluPlayer);
-        objectManager.add(RedPlayer);
-        objectManager.add(BluBase);
-        objectManager.add(RedBase);
+//        objectManager.add(BluPlayer);
+//        objectManager.add(RedPlayer);
+        objectManager.add(bluBase);
+        objectManager.add(redBase);
         
         intro = new Music("intro.ogg");
         intro.play();
@@ -74,13 +85,18 @@ public class Game extends BasicGame
             loop.stop();
             loop.play();
         }
+        
+        // Collision
+        if 
+        
+        objectManager.update(gc);
     }
 
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
-        // Background
-        g.drawImage(bg, 0, 0);
+        bgImage.draw(0,0);
+        objectManager.render(gc, g);
     }
     
     public static void main(String[] args)
