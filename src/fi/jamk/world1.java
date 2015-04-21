@@ -69,9 +69,9 @@ public class world1 extends BasicGameState {
          ship = new ShipV3(0.25f, 1.0f, 1.0f, 1.0f,ControllablePhysicObject.ControllerTypes.KB1);
          ship2 = new ShipV3(0.25f, 1.0f, 1.0f, 1.0f,ControllablePhysicObject.ControllerTypes.XB360WIRED);
         ship.init("res/ship_red.png");
-        ship.setPosition(0, 0);
+        ship.setPosition(64, 32);
         ship2.init("res/ship_blue.png");
-        ship2.setPosition(1920-32, 0);
+        ship2.setPosition(1920-64, 32);
         crackers.addToFaction(1, 1);
             //shipTrans = new Transform();
         loop = new Music("loop.ogg");
@@ -150,10 +150,10 @@ public class world1 extends BasicGameState {
             
             if (input.isKeyDown(input.KEY_R)) {
                 ship.setForce(0, 0);
-                ship.setPosition(0, 0);
+                ship.setPosition(64, 64);
                 
                 ship2.setForce(0, 0);
-                ship2.setPosition(0, 0);
+                ship2.setPosition(96, 64);
             }
             
             if(input.isKeyDown(input.KEY_ESCAPE)){
@@ -161,7 +161,9 @@ public class world1 extends BasicGameState {
             }
             
             ship.update();
+            ship.boundryCheck(ship);
             ship2.update();
+            ship2.boundryCheck(ship2);
             if (missileFired)
             {
                 missile.accelerate(1);

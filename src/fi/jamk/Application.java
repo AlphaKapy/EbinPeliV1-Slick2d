@@ -21,7 +21,7 @@ public class Application extends StateBasedGame
     
     MainMenu MAINMENU = new MainMenu();
     
-    private static int WIDTH = 1920, HEIGHT = 1080;
+    public static int WIDTH = 1920, HEIGHT = 1080;
     
     public Application(String appName)
     {
@@ -38,7 +38,7 @@ public class Application extends StateBasedGame
             appgc.setShowFPS(false);
             appgc.setTargetFrameRate(60);
             appgc.setDisplayMode(WIDTH, HEIGHT, false);
-            appgc.setFullscreen(true);
+            appgc.setFullscreen(false);
             appgc.start();
             
         }
