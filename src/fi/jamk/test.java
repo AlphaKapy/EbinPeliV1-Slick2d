@@ -78,8 +78,6 @@ public class test extends BasicGame
         loop = new Music("loop.ogg");
         intro = new Music("intro.ogg");
         
-        
-        
         intro.play();
         System.out.println(intro.getPosition());
         //collision
@@ -144,10 +142,10 @@ public class test extends BasicGame
                     ship1Collides = false;
                     
                 }
-            else if(!colBox.intersects(base1ColBox)){
+            if(!colBox.intersects(base1ColBox)){
                 ship1Collides = false;
             }
-            else if(!colBox.intersects(base2ColBox)){
+            if(!colBox.intersects(base2ColBox)){
                 ship1Collides = false;
             }
             else{
@@ -196,10 +194,9 @@ public class test extends BasicGame
                 g.drawString("Velocity X: "+ship.getFX(), 120, 40);
                 g.drawString("Y: "+ship.getFY(), 340, 40);
                 
-                g.setColor(Color.green);
-                g.draw(base1ColBox);
-                g.draw(base2ColBox);
-                g.draw(groundColBox);
+                //g.setColor(Color.green);
+                //g.draw(base1ColBox);
+                //g.draw(base2ColBox);
                 //g.drawString(ship.getName(),ship.getX(),ship.getY()+40);
                 //g.drawString("angleRad: "+ship.getAngleRad(), 420, 10);
 
