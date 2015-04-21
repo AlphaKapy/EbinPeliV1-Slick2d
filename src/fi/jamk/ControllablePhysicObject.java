@@ -11,7 +11,7 @@ public class ControllablePhysicObject extends PhysicObject
 {
     public static enum ControllerTypes {KB1, KB2, XB360WIRED};
     private ControllerTypes ctrlType;
-    private int ctrlrID = 4;
+    private int ctrlrID = 0;
     
 
     public ControllablePhysicObject(float acceleration, float turnrate, float aerodynamy, float lift, ControllerTypes ctrlType)

@@ -75,6 +75,8 @@ public class PhysicObject
         this.drag = 0.01f;
         this.gravity = 0.05f;
         this.cRotation = 0;
+        this.posX = 200;
+        this.posY = 200;
     }
 
     public void init(String img)

@@ -6,6 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.opengl.SlickCallable;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -16,11 +17,12 @@ import org.newdawn.slick.state.StateBasedGame;
 public class MainMenu extends BasicGameState
 {
     //world1 world = new world1();
-    Music music;
+    private Music music;
     private int cursorX = 85,cursorY = 250;
     private final int PLAY1V1 = 250, SETTINGS = 275, EXIT = 300;
     private final int CURSOR_MAX = 300, CURSOR_MIN = 250, CURSOR_STEP = 25, CURSOR_SELECT = 85, CURSOR_EDIT = 300;
     
+    private BasicGameState world;
     private Image bg;
     
     private enum MENU_STATES {MAIN_MENU, PLAY1V1, SETTINGS};
@@ -44,6 +46,8 @@ public class MainMenu extends BasicGameState
         //music.play();
         System.out.println("Starting music playback");
         music.loop((float)1.0,(float) 0.4);
+        
+        //sbg.addState(world);
     }
 
     @Override
@@ -80,6 +84,7 @@ public class MainMenu extends BasicGameState
             case MAIN_MENU:
                 //debug
                 if(input.isKeyPressed(input.KEY_TAB)){
+                    music.stop();
                     System.out.println("Entering world1");
                     sbg.enterState(1);
                     

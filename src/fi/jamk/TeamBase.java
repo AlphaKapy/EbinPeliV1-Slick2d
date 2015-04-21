@@ -33,7 +33,7 @@ public class TeamBase extends GameObject{
         this.imgPath = imgPath;
         try {
             img = new Image(imgPath);
-            shield = new Image("shield.png");
+            shield = new Image("res/shield.png");
         } catch (SlickException ex) {
             System.out.println("Loading base image failed");
             Logger.getLogger(TeamBase.class.getName()).log(Level.SEVERE, null, ex);

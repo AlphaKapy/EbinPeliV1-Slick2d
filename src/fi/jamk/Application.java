@@ -4,24 +4,24 @@ import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
 
 /**
  *
  * @author Matias Kivikoura
  */
-public class Application extends BasicGame
+public class Application extends StateBasedGame
 {
     public Stack<BasicGameState> gameStateStack = new Stack();
     
     MainMenu MAINMENU = new MainMenu();
     
-    private static int WIDTH = 1600, HEIGHT = 800;
+    private static int WIDTH = 1920, HEIGHT = 1080;
     
     public Application(String appName)
     {
@@ -35,35 +35,19 @@ public class Application extends BasicGame
         {
             AppGameContainer appgc;
             appgc = new AppGameContainer(new Application("Ebin Game"));
-            appgc.setShowFPS(true);
+            appgc.setShowFPS(false);
             appgc.setTargetFrameRate(60);
             appgc.setDisplayMode(WIDTH, HEIGHT, false);
+            appgc.setFullscreen(true);
             appgc.start();
+            
         }
         catch (SlickException e)
                 {
                     Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, e);
                 }
     }
-
-    @Override
-    public void init(GameContainer gc) throws SlickException
-    {
-        gameStateStack.push(MAINMENU);
-        MAINMENU.init(gc, null);
-    }
-
-    @Override
-    public void update(GameContainer gc, int i) throws SlickException
-    {
-        gameStateStack.peek().update(gc, null, i);
-    }
-
-    @Override
-    public void render(GameContainer gc, Graphics grphcs) throws SlickException
-    {
-        gameStateStack.peek().render(gc, null, grphcs);
-    }
+    
     
     /**
     * Pushes new game state on top of stack
@@ -79,5 +63,12 @@ public class Application extends BasicGame
     public void pop()
     {
         gameStateStack.pop();
+    }
+
+    @Override
+    public void initStatesList(GameContainer gc) throws SlickException {
+        addState(new MainMenu());
+        addState(new world1());
+        enterState(0);
     }
 }
