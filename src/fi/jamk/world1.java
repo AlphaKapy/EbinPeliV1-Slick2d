@@ -155,7 +155,7 @@ public class world1 extends BasicGameState {
             ship2.update();
             ship.collisionCheck(ship, ship2);
             //tmb1.missileCollision(missile2);
-            tmb2.missileCollision(missile);
+            //tmb2.missileCollision(missile);
             
             if (missileFired)
             {
