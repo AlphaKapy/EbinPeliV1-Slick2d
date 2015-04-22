@@ -60,9 +60,9 @@ public class world1 extends BasicGameState {
         blowers = new Faction(1,"blowers");
         crackers = new Faction(2,"crackers");
         
-        tmb1 = new TeamBase(64, HEIGHT-120, 1, "Crackers", "res/base_red.png");
+        tmb1 = new TeamBase(64, HEIGHT-120, 1, "Crackers", "res/base_red.png",100);
         blowers.addToFaction(1,100);
-        tmb2 = new TeamBase(WIDTH-128, HEIGHT-120, 2, "Blowers", "res/base_blue.png");
+        tmb2 = new TeamBase(WIDTH-128, HEIGHT-120, 2, "Blowers", "res/base_blue.png",100);
         blowers.addToFaction(2, 200);
         
          ship = new ShipV3(0.25f, 1.0f, 1.0f, 1.0f,ControllablePhysicObject.ControllerTypes.KB1);
@@ -153,6 +153,9 @@ public class world1 extends BasicGameState {
             //ship2.boundryCheck(ship2);
             ship.update();
             ship2.update();
+            ship.collisionCheck(ship, ship2);
+            //tmb1.missileCollision(missile2);
+            tmb2.missileCollision(missile);
             
             if (missileFired)
             {
@@ -166,7 +169,7 @@ public class world1 extends BasicGameState {
                 //particle trail
             }
             //collision
-            colBox.setLocation(ship.getX(), ship.getY());
+            /*colBox.setLocation(ship.getX(), ship.getY());
             //check for collisions
             if(!colBox.intersects(groundColBox)){
                     ship1Collides = false;
@@ -182,12 +185,12 @@ public class world1 extends BasicGameState {
                 ship1Collides = true;
                 System.out.println("Collision!");
                 ship.setForce((1/2)*-1*(ship.getFX()), (1/2)*-1*(ship.getY()));
-            }
+            }*/
             /*if(ship1Collides){
                 ship.setForce((1/2)*-1*(ship.getFX()), (1/2)*-1*(ship.getY()));
             }*/
             //missile collision
-            if(!missile1Colbox.intersects(base1ColBox)){
+           /*if(!missile1Colbox.intersects(base1ColBox)){
                 missile1Collides = false;
                 
             }
@@ -198,7 +201,7 @@ public class world1 extends BasicGameState {
                 missile1Collides = true;
                 System.out.println("Missile collides with base");
                 System.exit(0);
-            }
+            }*/
             musMg.introLoop();
 
         }

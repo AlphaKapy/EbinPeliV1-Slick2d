@@ -1,7 +1,9 @@
 package fi.jamk;
 
-import java.text.DecimalFormat;
+
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Rectangle;
+
 
 /**
  * Any object that needs to be affected by physics. Ships, projectiles, etc.
@@ -30,6 +32,10 @@ public class PhysicObject
     private Image image;
     private int width, height;
     private final float MAX_DROTATION = 5.0f;
+    
+    //collision
+    private Rectangle colBox, colBox2;
+    private boolean collision;
 
     /**
      *
@@ -56,6 +62,9 @@ public class PhysicObject
         this.cRotation = cRotation;
         this.forceX = forceX;
         this.forceY = forceY;
+    }
+    public PhysicObject(){
+        
     }
 
     /**
@@ -147,20 +156,42 @@ public class PhysicObject
         }
     }
     public void boundryCheck(PhysicObject obj){ //Still broken
-        if(obj.getX() > Application.WIDTH || obj.getX() < 0){
+        if(obj.getX() > Application.WIDTH+32 || obj.getX() < 0-32){
             obj.setForce(-1*obj.getFX(), obj.getFY());
             //obj.setForce(0,0);
-            System.out.println(obj+"Boundry collision X");
+            //System.out.println(obj+"Boundry collision X");
         }
-        if(obj.getY() > Application.HEIGHT || obj.getY() < 0){
+        if(obj.getY() > Application.HEIGHT-32 || obj.getY() < 0-32){
            obj.setForce(obj.getFX(), -1*obj.getFY());
            //obj.setForce(0,0);
             //obj.setCRotation(90+ obj.getCRotation());
-            System.out.println(obj+"Boundry collision Y");
+            //System.out.println(obj+"Boundry collision Y");
         }
         else
             obj.setForce(obj.getFX(), obj.getFY());
         //debug output
+        
+    }
+    
+    public boolean collisionCheck(PhysicObject obj, PhysicObject obj2){
+        colBox = new Rectangle(obj.getX(), obj.getY(), 32, 32);
+        colBox2 = new Rectangle(obj2.getX(),obj2.getY(),32,32);
+        
+        if(!colBox.intersects(colBox2)){
+                    collision = false;
+                    return collision;
+                    
+                }
+        else{
+                collision = true;
+                System.out.println("Collision!");
+                obj.setForce(0, 0);
+                if(obj.getClass()==ShipV3.class){
+                    System.out.println("Ship collision");
+                }
+                obj2.setForce(0, 0);
+                return collision;
+            }
         
     }
 
