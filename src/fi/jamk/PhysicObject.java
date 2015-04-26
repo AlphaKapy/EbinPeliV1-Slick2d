@@ -46,8 +46,7 @@ public class PhysicObject
      * @param posX
      * @param posY
      * @param cRotation
-     * @param width
-     * @param height
+
      */
     public PhysicObject(float acceleration, float turnrate, float aerodynamy,
                         float lift, float posX, float posY, float cRotation,
@@ -109,13 +108,15 @@ public class PhysicObject
 
     public void update()
     {
-        /* Experiemental lift, not working at all
-         this.gravity *= (this.lift * this.forceX) / this.gravity; */
+        /**
+         * Expiremental lift, not working at all
+         this.gravity *= (this.lift * this.forceX) / this.gravity; 
+         */
 
         // Gravity
         this.forceY += gravity;
 
-        /* Experiemental drag, not working properly, might not need at all
+        /** Expiremental drag, not working properly, might not need at all
          * because simpler way works well enough
          this.forceX -= Math.pow(forceX, 3) * drag;
          this.forceY -= Math.pow(forceY, 3) * drag; */
