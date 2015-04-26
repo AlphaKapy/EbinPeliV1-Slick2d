@@ -66,7 +66,7 @@ public class world1 extends BasicGameState {
         blowers.addToFaction(2, 200);
         
          ship = new ShipV3(0.25f, 1.0f, 1.0f, 1.0f,ControllablePhysicObject.ControllerTypes.KB1);
-         ship2 = new ShipV3(0.25f, 1.0f, 1.0f, 1.0f,ControllablePhysicObject.ControllerTypes.XB360WIRED);
+         ship2 = new ShipV3(0.25f, 1.0f, 1.0f, 1.0f,ControllablePhysicObject.ControllerTypes.KB2);
         ship.init("res/ship_red.png");
         ship.setPosition(64, 32);
         ship2.init("res/ship_blue.png");
@@ -149,8 +149,6 @@ public class world1 extends BasicGameState {
                 System.exit(0);
             }
             
-            //ship.boundryCheck(ship); //these are relocated to physic object
-            //ship2.boundryCheck(ship2);
             ship.update();
             ship2.update();
             ship.collisionCheck(ship, ship2);
@@ -168,27 +166,6 @@ public class world1 extends BasicGameState {
                 missile2.update();
                 //particle trail
             }
-            //collision
-            /*colBox.setLocation(ship.getX(), ship.getY());
-            //check for collisions
-            if(!colBox.intersects(groundColBox)){
-                    ship1Collides = false;
-                    
-                }
-            if(!colBox.intersects(base1ColBox)){
-                ship1Collides = false;
-            }
-            if(!colBox.intersects(base2ColBox)){
-                ship1Collides = false;
-            }
-            else{
-                ship1Collides = true;
-                System.out.println("Collision!");
-                ship.setForce((1/2)*-1*(ship.getFX()), (1/2)*-1*(ship.getY()));
-            }*/
-            /*if(ship1Collides){
-                ship.setForce((1/2)*-1*(ship.getFX()), (1/2)*-1*(ship.getY()));
-            }*/
             //missile collision
            /*if(!missile1Colbox.intersects(base1ColBox)){
                 missile1Collides = false;
@@ -203,6 +180,7 @@ public class world1 extends BasicGameState {
                 System.exit(0);
             }*/
             musMg.introLoop();
+            
 
         }
 

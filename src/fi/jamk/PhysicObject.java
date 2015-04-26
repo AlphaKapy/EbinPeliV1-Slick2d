@@ -189,7 +189,8 @@ public class PhysicObject
                 if(obj.getClass()==ShipV3.class){
                     System.out.println("Ship collision");
                 }
-                obj2.setForce(0, 0);
+                obj2.setForce(-1*obj2.getFX(),-1*obj2.getFY());
+                obj.setForce(-1*obj.getFX(), -1*obj2.getFY());
                 return collision;
             }
         
